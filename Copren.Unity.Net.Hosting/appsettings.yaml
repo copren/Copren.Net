@@ -1,0 +1,13 @@
+Serilog:
+  Using:
+    - "Serilog.Sinks.Console"
+    - "Shared"
+  MinimumLevel: "Debug"
+  WriteTo:
+    - Name: "Console"
+      Args:
+        formatProvider: "Shared.Logging.GuidFormatter, Shared"
+  Enrich:
+    - "FromLogContext"
+    - "WithMachineName"
+    - "WithThreadId"
