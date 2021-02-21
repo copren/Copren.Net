@@ -1,4 +1,5 @@
 bin
 obj
-.nupkg
+/Artifacts
+**/*.nupkg
 .DS_Store

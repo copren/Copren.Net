@@ -1,0 +1,69 @@
+<Project>
+  <!-- Set the repository root into a variable -->
+  <PropertyGroup>
+    <SourceRoot>$(MSBuildThisFileDirectory)</SourceRoot>
+  </PropertyGroup>
+
+  <!-- Set common properties regarding assembly information and nuget packages -->
+  <PropertyGroup>
+    <Authors>Austin Hanson</Authors>
+    <Company>Copren</Company>
+    <Product>Copren.Net</Product>
+    <Copyright>© Copren. All rights reserved.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/copren/Copren.Net</PackageProjectUrl>
+    <PackageIcon></PackageIcon>
+    <PackageTags>C# .NET Networking</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/copren/Copren.Net</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <LangVersion>latest</LangVersion>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+  </PropertyGroup>
+
+  <!-- Versioning properties -->
+  <PropertyGroup>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">0.0.1</VersionPrefix>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugType>Full</DebugType>
+    <VersionSuffix>dev</VersionSuffix>
+  </PropertyGroup>
+
+  <!-- Shared Package Versions -->
+  <PropertyGroup>
+    <!-- System packages -->
+    <System_Collections_Immutable>1.4.0</System_Collections_Immutable>
+    <System_Net_Sockets>4.3.0</System_Net_Sockets>
+
+    <!-- Copren packages -->
+    <Copren_Shared_Async>0.0.1</Copren_Shared_Async>
+    <Copren_Logging_Shared>0.0.2</Copren_Logging_Shared>
+
+    <!-- 3rd party packages -->
+    <Microsoft_Extensions_CommandLineUtils>1.1.1</Microsoft_Extensions_CommandLineUtils>
+    <Microsoft_Extensions_DependencyInjection>2.0.0</Microsoft_Extensions_DependencyInjection>
+    <Microsoft_Extensions_Options_ConfigurationExtensions>2.0.0</Microsoft_Extensions_Options_ConfigurationExtensions>
+    <Nito_AsyncEx>5.0.0-pre-05</Nito_AsyncEx>
+    <Serilog>2.6.0</Serilog>
+    <Serilog_Sinks_Console>3.1.1</Serilog_Sinks_Console>
+    <Serilog_Settings_Configuration>2.4.0</Serilog_Settings_Configuration>
+    <Microsoft_Extensions_Configuration_Yaml>2.0.0-preview2</Microsoft_Extensions_Configuration_Yaml>
+    <Microsoft_Extensions_Configuration_FileExtensions>2.0.0</Microsoft_Extensions_Configuration_FileExtensions>
+    <ProtoBuf_Net>2.3.3</ProtoBuf_Net>
+
+    <!-- Test related packages -->
+
+    <!-- Tooling related packages -->
+    <SourceLinkVersion>2.8.3</SourceLinkVersion>
+  </PropertyGroup>
+
+  <!-- Set output folder for created NuGet packages -->
+  <PropertyGroup>
+    <PackageOutputPath Condition=" '$(PackageOutputPath)'=='' ">$(SourceRoot)/Artifacts/$(Configuration)</PackageOutputPath>
+  </PropertyGroup>
+</Project>

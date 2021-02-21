@@ -1,35 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>Copren.Net.Hosting</PackageId>
-    <VersionPrefix>0.0.1</VersionPrefix>
-    <Authors>Austin Hanson</Authors>
-    <Company>Copren</Company>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>7.1</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>Full</DebugType>
-    <VersionSuffix>dev</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Net.Sockets" Version="4.3.0"/>
-    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1"/>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0"/>
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0"/>
-    <PackageReference Include="Serilog" Version="2.6.0"/>
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1"/>
-    <PackageReference Include="Serilog.Settings.Configuration" Version="2.4.0"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Yaml" Version="2.0.0-preview2"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0"/>
-    <PackageReference Include="System.Collections.Immutable" Version="1.4.0"/>
-    <PackageReference Include="Copren.Shared.Async" Version="0.0.1"/>
-    <PackageReference Include="Copren.Logging.Shared" Version="0.0.1"/>
+    <PackageReference Include="System.Collections.Immutable" Version="$(System_Collections_Immutable)"/>
+    <PackageReference Include="System.Net.Sockets" Version="$(System_Net_Sockets)" />
+    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="$(Microsoft_Extensions_CommandLineUtils)" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(Microsoft_Extensions_DependencyInjection)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(Microsoft_Extensions_Options_ConfigurationExtensions)" />
+    <PackageReference Include="Serilog" Version="$(Serilog)" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="$(Serilog_Sinks_Console)" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="$(Serilog_Settings_Configuration)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Yaml" Version="$(Microsoft_Extensions_Configuration_Yaml)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="$(Microsoft_Extensions_Configuration_FileExtensions)" />
+    <PackageReference Include="Copren.Shared.Async" Version="$(Copren_Shared_Async)" />
+    <PackageReference Include="Copren.Logging.Shared" Version="$(Copren_Logging_Shared)" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Copren.Net.Domain\Copren.Net.Domain.csproj"/>
