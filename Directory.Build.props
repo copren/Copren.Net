@@ -17,8 +17,6 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/copren/Copren.Net</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IncludeSource>true</IncludeSource>
     <LangVersion>latest</LangVersion>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
   </PropertyGroup>
@@ -26,7 +24,7 @@
   <!-- Versioning properties -->
   <PropertyGroup>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">0.0.1</VersionPrefix>
+    <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">0.0.2</VersionPrefix>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -41,7 +39,7 @@
     <System_Net_Sockets>4.3.0</System_Net_Sockets>
 
     <!-- Copren packages -->
-    <Copren_Shared_Async>0.0.1</Copren_Shared_Async>
+    <Copren_Shared_Async>0.0.2</Copren_Shared_Async>
     <Copren_Logging_Shared>0.0.2</Copren_Logging_Shared>
 
     <!-- 3rd party packages -->
