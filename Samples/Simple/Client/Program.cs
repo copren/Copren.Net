@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Copren.Unity.Net.Contrib.Peers;
-using Copren.Unity.Net.Contrib.Peers.State;
-using Copren.Unity.Net.Contrib.State;
-using Copren.Unity.Net.Core.Connection;
+using Copren.Net.Contrib.Peers;
+using Copren.Net.Contrib.Peers.State;
+using Copren.Net.Contrib.State;
+using Copren.Net.Core.Connection;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Nito.AsyncEx;
@@ -56,13 +56,13 @@ namespace Client
                 _logger = logger.ForContext<StateHandler>();
             }
 
-            public Task OnPeerStateChanged(Copren.Unity.Net.Core.Connection.Client client, Guid peerId, object state)
+            public Task OnPeerStateChanged(Copren.Net.Core.Connection.Client client, Guid peerId, object state)
             {
                 _logger.Information("Peer {PeerId:s} reported state = {Position}", peerId, state);
                 return Task.CompletedTask;
             }
 
-            public Task OnStateChanged(Copren.Unity.Net.Core.Connection.Client client, bool fromServer, object state)
+            public Task OnStateChanged(Copren.Net.Core.Connection.Client client, bool fromServer, object state)
             {
                 // Ignore peer updates
                 if (!fromServer) return Task.CompletedTask;

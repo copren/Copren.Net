@@ -8,10 +8,10 @@
     <PackageReference Include="Nito.AsyncEx" Version="5.0.0-pre-05" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Copren.Unity.Net.Core\Copren.Unity.Net.Core.csproj" />
-    <ProjectReference Include="..\..\..\Copren.Unity.Net.Contrib.Peers\Copren.Unity.Net.Contrib.Peers\Copren.Unity.Net.Contrib.Peers.csproj" />
-    <ProjectReference Include="..\..\..\Copren.Unity.Net.Contrib.State\Copren.Unity.Net.Contrib.State\Copren.Unity.Net.Contrib.State.csproj" />
-    <ProjectReference Include="..\..\..\Copren.Unity.Net.Contrib.Peers.State\Copren.Unity.Net.Contrib.Peers.State\Copren.Unity.Net.Contrib.Peers.State.csproj" />
+    <ProjectReference Include="..\..\..\Copren.Net.Core\Copren.Net.Core.csproj" />
+    <ProjectReference Include="..\..\..\Copren.Net.Contrib.Peers\Copren.Net.Contrib.Peers\Copren.Net.Contrib.Peers.csproj" />
+    <ProjectReference Include="..\..\..\Copren.Net.Contrib.State\Copren.Net.Contrib.State\Copren.Net.Contrib.State.csproj" />
+    <ProjectReference Include="..\..\..\Copren.Net.Contrib.Peers.State\Copren.Net.Contrib.Peers.State\Copren.Net.Contrib.Peers.State.csproj" />
     <ProjectReference Include="..\Simple.Shared\Simple.Shared.csproj" />
   </ItemGroup>
 </Project>

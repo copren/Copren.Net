@@ -4,10 +4,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Copren.Unity.Net\Copren.Unity.Net.Hosting\Copren.Unity.Net.Hosting.csproj" />
-    <ProjectReference Include="..\..\..\..\Copren.Unity.Net.Contrib\Copren.Unity.Net.Contrib.Peers\Copren.Unity.Net.Contrib.Peers\Copren.Unity.Net.Contrib.Peers.csproj" />
-    <ProjectReference Include="..\..\..\..\Copren.Unity.Net.Contrib\Copren.Unity.Net.Contrib.State\Copren.Unity.Net.Contrib.State\Copren.Unity.Net.Contrib.State.csproj" />
-    <ProjectReference Include="..\..\..\..\Copren.Unity.Net.Contrib\Copren.Unity.Net.Contrib.Peers.State\Copren.Unity.Net.Contrib.Peers.State\Copren.Unity.Net.Contrib.Peers.State.csproj" />
+    <ProjectReference Include="..\..\..\..\Copren.Net\Copren.Net.Hosting\Copren.Net.Hosting.csproj" />
+    <ProjectReference Include="..\..\..\..\Copren.Net.Contrib\Copren.Net.Contrib.Peers\Copren.Net.Contrib.Peers\Copren.Net.Contrib.Peers.csproj" />
+    <ProjectReference Include="..\..\..\..\Copren.Net.Contrib\Copren.Net.Contrib.State\Copren.Net.Contrib.State\Copren.Net.Contrib.State.csproj" />
+    <ProjectReference Include="..\..\..\..\Copren.Net.Contrib\Copren.Net.Contrib.Peers.State\Copren.Net.Contrib.Peers.State\Copren.Net.Contrib.Peers.State.csproj" />
     <ProjectReference Include="..\Asteroid.Shared\Asteroid.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Asteroid.Shared;
-using Copren.Unity.Net.Contrib.Peers;
-using Copren.Unity.Net.Contrib.Peers.State;
-using Copren.Unity.Net.Contrib.State;
-using Copren.Unity.Net.Contrib.State.Extensions;
-using Copren.Unity.Net.Contrib.State.Messages;
+using Copren.Net.Contrib.Peers;
+using Copren.Net.Contrib.Peers.State;
+using Copren.Net.Contrib.State;
+using Copren.Net.Contrib.State.Extensions;
+using Copren.Net.Contrib.State.Messages;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
-using Copren.Unity.Net.Hosting.Hosting;
+using Copren.Net.Hosting.Hosting;
 
 namespace Asteroid.Host
 {
@@ -33,7 +33,7 @@ namespace Asteroid.Host
                 _logger = logger.ForContext<StateHandler>();
             }
 
-            public Task OnStateChanged(Copren.Unity.Net.Hosting.Hosting.Host host, bool fromServer, Guid clientId, object state)
+            public Task OnStateChanged(Copren.Net.Hosting.Hosting.Host host, bool fromServer, Guid clientId, object state)
             {
                 try
                 {
