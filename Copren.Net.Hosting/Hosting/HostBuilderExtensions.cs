@@ -7,27 +7,29 @@ using Serilog.Configuration;
 using Serilog.Events;
 using Copren.Net.Hosting.Middleware;
 using Copren.Logging.Shared;
+using Microsoft.Extensions.Hosting;
 
 namespace Copren.Net.Hosting.Hosting
 {
     public static class HostBuilderExtensions
     {
-        public static HostBuilder ListenTo(this HostBuilder self, Action<HostOptions> options)
+        public static CoprenNetHostBuilder UseCoprenNet(this HostBuilder self, Action<HostOptions> options)
         {
+            var coprenHostBuilder = new CoprenNetHostBuilder(self);
             var hostOptions = new HostOptions();
             options.Invoke(hostOptions);
-            self.Configure(s => s.AddSingleton(hostOptions));
-            return self;
+            coprenHostBuilder.Configure(s => s.AddSingleton(hostOptions));
+            return coprenHostBuilder;
         }
 
-        public static HostBuilder AddMiddleware<T>(this HostBuilder self)
+        public static CoprenNetHostBuilder AddMiddleware<T>(this CoprenNetHostBuilder self)
             where T : IMiddleware
         {
             self.Configure(s => s.TryAddEnumerable(ServiceDescriptor.Describe(typeof(IMiddleware), typeof(T), ServiceLifetime.Singleton)));
             return self;
         }
 
-        public static HostBuilder AddDebugging(this HostBuilder self, LogEventLevel minimumLogLevel = LogEventLevel.Debug)
+        public static CoprenNetHostBuilder AddDebugging(this CoprenNetHostBuilder self, LogEventLevel minimumLogLevel = LogEventLevel.Debug)
         {
             var loggerConfiguration = new LoggerConfiguration()
                 .WriteTo.Console(formatProvider: new GuidFormatter());
@@ -40,14 +42,14 @@ namespace Copren.Net.Hosting.Hosting
             return self;
         }
 
-        public static HostBuilder AddLogging<T>(this HostBuilder self, T logger)
+        public static CoprenNetHostBuilder AddLogging<T>(this CoprenNetHostBuilder self, T logger)
             where T : ILogger
         {
             self.Configure(s => s.Replace(new ServiceDescriptor(typeof(ILogger), logger)));
             return self;
         }
 
-        public static HostBuilder AddLogging<T>(this HostBuilder self)
+        public static CoprenNetHostBuilder AddLogging<T>(this CoprenNetHostBuilder self)
             where T : ILogger
         {
             self.Configure(s => s.Replace(new ServiceDescriptor(typeof(ILogger), typeof(T))));

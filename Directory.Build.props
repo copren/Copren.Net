@@ -18,7 +18,8 @@
     <RepositoryUrl>https://github.com/copren/Copren.Net</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <LangVersion>latest</LangVersion>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <!-- Versioning properties -->
@@ -41,18 +42,21 @@
     <!-- Copren packages -->
     <Copren_Shared_Async>0.0.2</Copren_Shared_Async>
     <Copren_Logging_Shared>0.0.2</Copren_Logging_Shared>
+    <Copren_Net>0.0.2</Copren_Net>
 
     <!-- 3rd party packages -->
+    <Microsoft_Extensions>2.2.0</Microsoft_Extensions>
     <Microsoft_Extensions_CommandLineUtils>1.1.1</Microsoft_Extensions_CommandLineUtils>
-    <Microsoft_Extensions_DependencyInjection>2.0.0</Microsoft_Extensions_DependencyInjection>
-    <Microsoft_Extensions_Options_ConfigurationExtensions>2.0.0</Microsoft_Extensions_Options_ConfigurationExtensions>
+    <Microsoft_Extensions_Configuration_Yaml>2.0.0-preview2</Microsoft_Extensions_Configuration_Yaml>
+    <Microsoft_Extensions_Configuration_FileExtensions>$(Microsoft_Extensions)</Microsoft_Extensions_Configuration_FileExtensions>
+    <Microsoft_Extensions_DependencyInjection>$(Microsoft_Extensions)</Microsoft_Extensions_DependencyInjection>
+    <Microsoft_Extensions_Hosting>$(Microsoft_Extensions)</Microsoft_Extensions_Hosting>
+    <Microsoft_Extensions_Options_ConfigurationExtensions>$(Microsoft_Extensions)</Microsoft_Extensions_Options_ConfigurationExtensions>
     <Nito_AsyncEx>5.0.0-pre-05</Nito_AsyncEx>
+    <ProtoBuf_Net>2.3.3</ProtoBuf_Net>
     <Serilog>2.6.0</Serilog>
     <Serilog_Sinks_Console>3.1.1</Serilog_Sinks_Console>
     <Serilog_Settings_Configuration>2.4.0</Serilog_Settings_Configuration>
-    <Microsoft_Extensions_Configuration_Yaml>2.0.0-preview2</Microsoft_Extensions_Configuration_Yaml>
-    <Microsoft_Extensions_Configuration_FileExtensions>2.0.0</Microsoft_Extensions_Configuration_FileExtensions>
-    <ProtoBuf_Net>2.3.3</ProtoBuf_Net>
 
     <!-- Test related packages -->
 

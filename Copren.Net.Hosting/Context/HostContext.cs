@@ -5,11 +5,11 @@ namespace Copren.Net.Hosting.Context
 {
     public class HostContext
     {
-        public Host Host { get; }
+        public CoprenNetHost Host { get; }
         public Uri ClientUri { get; }
         public Guid? ClientId { get; }
 
-        public HostContext(Host host, Uri clientUri, Guid? clientId = null)
+        public HostContext(CoprenNetHost host, Uri clientUri, Guid? clientId = null)
         {
             Host = host;
             ClientUri = clientUri;

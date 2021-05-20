@@ -14,12 +14,15 @@ using Copren.Net.Hosting.Context;
 using Copren.Net.Hosting.Middleware;
 using System.Reflection;
 using Copren.Net.Domain.Attributes;
+using Microsoft.Extensions.Hosting;
 
 namespace Copren.Net.Hosting.Hosting
 {
-    public class Host
+    public class CoprenNetHost : IHostedService
     {
         public event ConnectionHandler OnConnected;
+        public event MessageHandler OnMessageReceived;
+        public event ExceptionHandler OnException;
         public event ConnectionHandler OnDisconnected;
         public bool IsListening { get; }
         public EndPoint LocalEndPoint { get; }
@@ -32,7 +35,7 @@ namespace Copren.Net.Hosting.Hosting
         private Task _hostTransportTask;
         private readonly ILogger _logger;
 
-        public Host(IServiceProvider serviceProvider,
+        public CoprenNetHost(IServiceProvider serviceProvider,
             MessageCenter messageCenter,
             ClientCollection clientCollection,
             IEnumerable<IMiddleware> middleware,
@@ -46,21 +49,21 @@ namespace Copren.Net.Hosting.Hosting
             _messageCenter.OnMessage += OnMessage;
             _messageCenter.OnClosed += OnClosed;
             LocalEndPoint = hostOptions.LocalEndPoint;
-            _logger = logger.ForContext<Host>();
+            _logger = logger.ForContext<CoprenNetHost>();
         }
 
-        public Task StartAsync()
+        public Task StartAsync(CancellationToken ct)
         {
             if (IsListening) return Task.CompletedTask;
 
             _logger.Information("Listening on (tcp|udp)://{EndPoint}", LocalEndPoint);
 
-            _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(ct);
             _hostTransportTask = _messageCenter.StartAsync(_cancellationTokenSource.Token);
             return _hostTransportTask;
         }
 
-        public Task StopAsync()
+        public Task StopAsync(CancellationToken ct)
         {
             if (!IsListening) return Task.CompletedTask;
             _cancellationTokenSource.Cancel(false);
@@ -123,11 +126,23 @@ namespace Copren.Net.Hosting.Hosting
 
             var middlewareEnumerator = _middleware.GetEnumerator();
             Func<Task> next = null;
-            next = () =>
+            next = async () =>
             {
-                if (!middlewareEnumerator.MoveNext()) return Task.CompletedTask;
-                _logger.Verbose("Executing host {Middleware}.{Method}", middlewareEnumerator.Current.GetType(), nameof(IMiddleware.OnMessage));
-                return middlewareEnumerator.Current.OnMessage(hostContext, message, next);
+                try
+                {
+                    if (!middlewareEnumerator.MoveNext())
+                    {
+                        await (OnMessageReceived?.Invoke(client, message) ?? Task.CompletedTask);
+                        return;
+                    }
+
+                    _logger.Verbose("Executing host {Middleware}.{Method}", middlewareEnumerator.Current.GetType(), nameof(IMiddleware.OnMessage));
+                    await middlewareEnumerator.Current.OnMessage(hostContext, message, next);
+                }
+                catch(Exception e)
+                {
+                    await FireOnException(client, e);
+                }
             };
 
             return next();
@@ -210,11 +225,18 @@ namespace Copren.Net.Hosting.Hosting
 
             var middlewareEnumerator = _middleware.GetEnumerator();
             Func<Task> next = null;
-            next = () =>
+            next = async () =>
             {
-                if (!middlewareEnumerator.MoveNext()) return Task.CompletedTask;
-                _logger.Verbose("Executing host {Middleware}.{Method}", middlewareEnumerator.Current.GetType(), nameof(IMiddleware.OnClientConnected));
-                return middlewareEnumerator.Current.OnClientConnected(hostContext, client, next);
+                try
+                {
+                    if (!middlewareEnumerator.MoveNext()) return;
+                    _logger.Verbose("Executing host {Middleware}.{Method}", middlewareEnumerator.Current.GetType(), nameof(IMiddleware.OnClientConnected));
+                    await middlewareEnumerator.Current.OnClientConnected(hostContext, client, next);
+                }
+                catch(Exception e)
+                {
+                    await FireOnException(client, e);
+                }
             };
 
             await next();
@@ -223,17 +245,30 @@ namespace Copren.Net.Hosting.Hosting
             await (OnConnected?.Invoke(client) ?? Task.CompletedTask);
         }
 
+        private async Task FireOnException(Client client, Exception exception)
+        {
+            _logger.Error(exception, exception.Message);
+            await (OnException?.Invoke(client, exception) ?? Task.CompletedTask);
+        }
+
         private async Task FireOnDisconnected(Client client, Uri clientUri)
         {
             var hostContext = new HostContext(this, clientUri);
 
             var middlewareEnumerator = _middleware.GetEnumerator();
             Func<Task> next = null;
-            next = () =>
+            next = async () =>
             {
-                if (!middlewareEnumerator.MoveNext()) return Task.CompletedTask;
-                _logger.Verbose("Executing host {Middleware}.{Method}", middlewareEnumerator.Current.GetType(), nameof(IMiddleware.OnClientDisconnected));
-                return middlewareEnumerator.Current.OnClientDisconnected(hostContext, client, next);
+                try
+                {
+                    if (!middlewareEnumerator.MoveNext()) return;
+                    _logger.Verbose("Executing host {Middleware}.{Method}", middlewareEnumerator.Current.GetType(), nameof(IMiddleware.OnClientDisconnected));
+                    await middlewareEnumerator.Current.OnClientDisconnected(hostContext, client, next);
+                }
+                catch(Exception e)
+                {
+                    await FireOnException(client, e);
+                }
             };
 
             await next();

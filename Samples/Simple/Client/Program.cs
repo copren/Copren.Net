@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Data;
+using System.Security.AccessControl;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using Nito.AsyncEx;
 using Serilog;
 using Serilog.Events;
 using Simple.Shared;
+using rasa.Communication;
 
 namespace Client
 {
@@ -116,16 +119,24 @@ namespace Client
                 var random = new Random();
                 while (true)
                 {
-                    await Task.Delay(1000);
+                    // await Task.Delay(5000);
 
-                    position = client.State().GetState() == null ? position : (StateMessage)client.State().GetState();
+                    // position = client.State().GetState() == null ? position : (StateMessage)client.State().GetState();
 
-                    position.X += random.NextDouble() - .5;
-                    position.Y += random.NextDouble() - .5;
+                    // position.X += random.NextDouble() - .5;
+                    // position.Y += random.NextDouble() - .5;
 
-                    var logger = client.ServiceProvider.GetRequiredService<ILogger>();
-                    logger.ForContext<Program>().Information("Client {ClientId:s} sending state = {Position}", client.Id, position);
-                    await client.UpdateStateAsync(position);
+                    // var logger = client.ServiceProvider.GetRequiredService<ILogger>();
+                    // logger.ForContext<Program>().Information("Client {ClientId:s} sending state = {Position}", client.Id, position);
+                    // await client.UpdateStateAsync(position);
+
+                    // while (true)
+                    // {
+                        Console.Write("? ");
+                        var input = await Console.In.ReadLineAsync();
+                        if (input == "q" || input == "quit") break;
+                        else await client.SendServerMessageAsync(new CommandMessage(input));
+                    // }
                 }
             });
             await _closedEvent.WaitAsync();

@@ -1,20 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="Nito.AsyncEx" Version="5.0.0-pre-05" />
+  </ItemGroup>
 
-    <PackageReference Include="Copren.Net.Core" Version="0.0.2" />
-    <PackageReference Include="Copren.Net.Contrib.Peers" Version="0.0.2" />
-    <PackageReference Include="Copren.Net.Contrib.State" Version="0.0.2" />
-    <PackageReference Include="Copren.Net.Contrib.Peers.State" Version="0.0.2" />
+  <ItemGroup Condition=" '$(Configuration)' != 'Debug' ">
+    <PackageReference Include="Copren.Net.Core" Version="$(Copren_Net)" />
+    <PackageReference Include="Copren.Net.Contrib.Peers" Version="$(Copren_Net)" />
+    <PackageReference Include="Copren.Net.Contrib.State" Version="$(Copren_Net)" />
+    <PackageReference Include="Copren.Net.Contrib.Peers.State" Version="$(Copren_Net)" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ProjectReference Include="..\..\..\..\Copren.Net\Copren.Net.Core\Copren.Net.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Copren.Net.Contrib\Copren.Net.Contrib.Peers\Copren.Net.Contrib.Peers.csproj"/>
+    <ProjectReference Include="..\..\..\..\Copren.Net.Contrib\Copren.Net.Contrib.State\Copren.Net.Contrib.State.csproj"/>
+    <ProjectReference Include="..\..\..\..\Copren.Net.Contrib\Copren.Net.Contrib.Peers.State\Copren.Net.Contrib.Peers.State.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Simple.Shared\Simple.Shared.csproj" />
+    <ProjectReference Include="..\..\..\..\hvn\server\src\rasa.Communication\rasa.Communication.csproj" />
   </ItemGroup>
 </Project>
